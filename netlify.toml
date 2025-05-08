@@ -10,8 +10,4 @@
   to = "/index.html"
   status = 200
 
-# 禁用Cypress插件
-[[plugins]]
-  package = "netlify-plugin-cypress"
-  [plugins.inputs]
-    enable = false
+# 完全移除Cypress插件配置
