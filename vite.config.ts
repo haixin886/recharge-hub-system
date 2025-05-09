@@ -15,12 +15,11 @@ export default defineConfig(({ mode, command }) => {
       port: 8080,
     },
     build: {
-      // 使用terser压缩代码
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-        },
+      // 使用esbuild压缩代码（内置，不需要额外依赖）
+      minify: 'esbuild',
+      // 使用esbuild压缩选项
+      esbuildOptions: {
+        drop: ['console'],
       },
       // 生产环境不生成sourcemap
       sourcemap: mode !== 'production',
