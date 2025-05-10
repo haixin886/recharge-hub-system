@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MoreVertical, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { MoreVertical, CheckCircle, XCircle, Loader } from "lucide-react";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { LoadingButton } from "@/components/ui/LoadingSpinner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -180,7 +182,7 @@ const Finance = () => {
               <DropdownMenuItem onClick={() => handleApproveRechargeRequest(row.id)} disabled={row.status !== "pending" || isProcessingRequest}>
                 {isProcessingRequest ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
                     处理中...
                   </>
                 ) : (
@@ -193,7 +195,7 @@ const Finance = () => {
               <DropdownMenuItem onClick={() => handleRejectRechargeRequest(row.id)} disabled={row.status !== "pending" || isProcessingRequest}>
                 {isProcessingRequest ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader className="mr-2 h-4 w-4 animate-spin" />
                     处理中...
                   </>
                 ) : (
@@ -224,9 +226,8 @@ const Finance = () => {
         </div>
 
         {isLoading ? (
-          <div className="flex items-center justify-center p-10">
-            <Loader2 className="h-10 w-10 animate-spin text-primary" />
-            <span className="ml-4 text-lg">加载中...</span>
+          <div className="loading-component-centered">
+            <LoadingSpinner size="large" text="加载中..." />
           </div>
         ) : loadError ? (
           <div className="rounded-md border p-6 text-center">
@@ -276,7 +277,7 @@ const Finance = () => {
                       >
                         {isProcessingRequest ? (
                           <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader className="mr-2 h-4 w-4 animate-spin" />
                             处理...
                           </>
                         ) : (
@@ -296,7 +297,7 @@ const Finance = () => {
                       >
                         {isProcessingRequest ? (
                           <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            <Loader className="mr-2 h-4 w-4 animate-spin" />
                             处理...
                           </>
                         ) : (

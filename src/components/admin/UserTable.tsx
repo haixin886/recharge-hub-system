@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from "react";
 import { User, UserWallet } from "@/types";
-import { Loader2, Trash2, Coins, Lock, RefreshCw } from "lucide-react";
+import { Trash2, Coins, Lock, RefreshCw } from "lucide-react";
+import { LoadingSpinner, LoadingButton, InlineLoading } from "@/components/ui";
 import {
   Table,
   TableHeader,
@@ -138,7 +139,7 @@ const UserTable: React.FC<UserTableProps> = ({
   if (isLoading) {
     return (
       <div className="flex justify-center py-8">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        <LoadingSpinner size="medium" text="" />
       </div>
     );
   }
@@ -164,10 +165,7 @@ const UserTable: React.FC<UserTableProps> = ({
           disabled={refreshingBalances}
         >
           {refreshingBalances ? (
-            <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              刷新中...
-            </>
+            <LoadingButton>刷新中...</LoadingButton>
           ) : (
             <>
               <RefreshCw className="h-4 w-4 mr-2" />
@@ -203,7 +201,7 @@ const UserTable: React.FC<UserTableProps> = ({
                     ? walletBalances[user.id] !== null 
                       ? `¥${walletBalances[user.id]?.toFixed(2)}` 
                       : '-' 
-                    : <Loader2 className="h-4 w-4 animate-spin inline" />}
+                    : <InlineLoading />}
                 </TableCell>
                 <TableCell>{formatDate(user.created_at)}</TableCell>
                 <TableCell className="text-right">

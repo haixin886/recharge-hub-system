@@ -16,6 +16,7 @@ import Finance from "./pages/admin/Finance";
 import Settings from "./pages/admin/Settings";
 import Business from "./pages/admin/Business";
 import Agents from "./pages/admin/Agents";
+import DataPanel from "./pages/admin/DataPanel";
 import AdminAuth from "./pages/admin/AdminAuth";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
@@ -26,7 +27,7 @@ import Withdraw from "./pages/Withdraw";
 // u4ee3u7406u9875u9762
 import AgentLogin from "./pages/agent/AgentLogin";
 import AgentDashboard from "./pages/agent/AgentDashboard";
-import { Loader2 } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui";
 import { useEffect, useState } from "react";
 import { supabase } from "./integrations/supabase/client"; 
 import { AdminUser } from "./types";
@@ -73,8 +74,7 @@ const AdminRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
-          <p className="text-gray-500">正在验证权限...</p>
+          <LoadingSpinner size="medium" text="正在验证权限..." />
         </div>
       </div>
     );
@@ -114,6 +114,7 @@ const AppRoutes = () => {
       
       {/* Admin routes with protection */}
       <Route path="/admin" element={<AdminRoute><Dashboard /></AdminRoute>} />
+      <Route path="/admin/data-panel" element={<AdminRoute><DataPanel /></AdminRoute>} />
       <Route path="/admin/orders" element={<AdminRoute><Orders /></AdminRoute>} />
       <Route path="/admin/users" element={<AdminRoute><Users /></AdminRoute>} />
       <Route path="/admin/finance" element={<AdminRoute><Finance /></AdminRoute>} />

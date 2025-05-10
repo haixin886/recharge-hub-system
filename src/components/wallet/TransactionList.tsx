@@ -5,6 +5,7 @@ import {
   ArrowUpRight, 
   Clock 
 } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui';
 import { format } from "date-fns";
 import { 
   Card, 
@@ -66,7 +67,7 @@ const TransactionList: React.FC<TransactionListProps> = ({ transactions, isLoadi
       <CardContent>
         {isLoading ? (
           <div className="flex justify-center py-4">
-            <Clock className="h-6 w-6 animate-spin text-primary" />
+            <LoadingSpinner size="small" text="" />
           </div>
         ) : transactions.length > 0 ? (
           <div className="space-y-4">

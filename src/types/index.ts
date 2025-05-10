@@ -144,16 +144,17 @@ export type Agent = {
   password?: string; // 登录密码，仅在创建时使用，不应返回到前端
   commission_rate: number; // u4f63u91d1u6bd4u4f8bu767eu5206u6bd4
   status: "active" | "inactive";
-  balance: number; // u4ee3u7406u8d26u6237u4f59u989d
-  total_commission: number; // u603bu8ba1u4f63u91d1
+  balance: number; // 代理余额
+  total_commission: number; // 总佣金
   created_at: string;
   updated_at: string;
   
-  // u6dfbu52a0u56feu8868u4e2du663eu793au7684u5b57u6bb5
-  processing_orders_count?: number; // u5904u7406u4e2du8ba2u5355u6570u91cf
-  completed_orders_count?: number; // u5df2u5b8cu6210u8ba2u5355u6570u91cf
-  today_orders_amount?: number; // u4eecu65e5u8ba2u5355u91d1u989d
-  is_online?: boolean; // u5728u7ebfu72b6u6001
+  // 添加图表中显示的字段
+  processing_orders_count?: number; // 处理中订单数量
+  completed_orders_count?: number; // 已完成订单数量
+  today_orders_amount?: number; // 今日订单金额
+  agent_line_count?: number; // 代理线数据数量
+  is_online?: boolean; // 在线状态
 };
 
 // Agent transaction record

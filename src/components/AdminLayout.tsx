@@ -13,7 +13,8 @@ import {
   Menu,
   Wallet,
   Loader2,
-  Tags
+  Tags,
+  BarChart3
 } from "lucide-react";
 import {
   Sheet,
@@ -124,6 +125,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
   const getPermissionLabel = (permission: string): string => {
     const labels = {
       'dashboard': '控制面板',
+      'data-panel': '数据面板',
       'orders': '订单管理',
       'finance': '财务管理',
       'users': '用户管理',
@@ -139,6 +141,12 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       path: '/admin', 
       label: '控制面板', 
       icon: <LayoutDashboard className="h-5 w-5" />,
+      permission: 'dashboard'
+    },
+    { 
+      path: '/admin/data-panel', 
+      label: '数据面板', 
+      icon: <BarChart3 className="h-5 w-5" />,
       permission: 'dashboard'
     },
     { 

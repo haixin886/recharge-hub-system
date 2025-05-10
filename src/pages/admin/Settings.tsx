@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
-import { Loader2 } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui";
 import { getAdminUsers } from "@/services/adminService";
 import { AdminUser } from "@/types";
 import AdminUserManagement from "@/components/admin/user-management/AdminUserManagement";
@@ -67,7 +67,7 @@ const Settings = () => {
               <CardContent>
                 {isLoading ? (
                   <div className="flex justify-center py-8">
-                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                    <LoadingSpinner size="medium" text="" />
                   </div>
                 ) : (
                   <AdminUserManagement 

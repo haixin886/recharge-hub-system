@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { AdminUser } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Loader2, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import { LoadingButton } from "@/components/ui/LoadingSpinner";
 import { useToast } from "@/components/ui/use-toast";
 import { getAdminUsers } from "@/services/adminService";
 import { AdminUsersList } from "./AdminUsersList";
@@ -50,19 +51,24 @@ const AdminUserManagement: React.FC<AdminUserManagementProps> = ({
           共 {adminUsers.length} 个管理员
         </h3>
         <div className="flex gap-2">
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={handleRefresh}
-            disabled={isRefreshing}
-          >
-            {isRefreshing ? (
-              <Loader2 className="h-4 w-4 mr-1 animate-spin" />
-            ) : (
+          {isRefreshing ? (
+            <Button 
+              variant="outline" 
+              size="sm"
+              disabled
+            >
+              <LoadingButton className="text-xs">刷新</LoadingButton>
+            </Button>
+          ) : (
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleRefresh}
+            >
               <RefreshCw className="h-4 w-4 mr-1" />
-            )}
-            刷新
-          </Button>
+              刷新
+            </Button>
+          )}
           
           <AddAdminDialog 
             onAdminAdded={(newAdmin) => {

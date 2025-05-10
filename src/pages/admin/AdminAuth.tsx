@@ -18,7 +18,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
-import { ArrowLeft, Loader2, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
+import { LoadingButton } from "@/components/ui";
 import { Link } from "react-router-dom";
 
 // 将从admin_users表验证管理员身份，不再使用硬编码列表
@@ -216,10 +217,7 @@ const AdminAuthPage = () => {
                   disabled={isLoading}
                 >
                   {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      登录中...
-                    </>
+                    <LoadingButton>登录中...</LoadingButton>
                   ) : "登录管理后台"}
                 </Button>
               </form>

@@ -43,6 +43,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ agents }) => {
             <TableHead>处理中订单</TableHead>
             <TableHead>已完成订单</TableHead>
             <TableHead>今日订单金额</TableHead>
+            <TableHead>代理线数据</TableHead>
             <TableHead>在线状态</TableHead>
             <TableHead>操作</TableHead>
           </TableRow>
@@ -50,7 +51,7 @@ const AgentsList: React.FC<AgentsListProps> = ({ agents }) => {
         <TableBody>
           {agents.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={7} className="h-24 text-center">
+              <TableCell colSpan={8} className="h-24 text-center">
                 暂无代理数据
               </TableCell>
             </TableRow>
@@ -73,6 +74,17 @@ const AgentsList: React.FC<AgentsListProps> = ({ agents }) => {
                 </TableCell>
                 <TableCell>
                   <span className="font-medium text-primary">{formatAmount(agent.today_orders_amount || 0)}</span>
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center gap-1">
+                    <span className="font-medium text-blue-600">{agent.agent_line_count ?? 0}</span>
+                    <span className="text-xs text-muted-foreground">条</span>
+                    {(agent.agent_line_count ?? 0) > 0 && (
+                      <Badge variant="outline" className="ml-1 text-xs bg-blue-50">
+                        活跃
+                      </Badge>
+                    )}
+                  </div>
                 </TableCell>
                 <TableCell>
                   <Badge variant={agent.is_online ? "default" : "outline"} className={agent.is_online ? "bg-green-500 hover:bg-green-500/80" : "text-muted-foreground"}>

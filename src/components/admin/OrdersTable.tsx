@@ -30,6 +30,13 @@ export const getStatusBadge = (status: string) => {
           待处理
         </Badge>
       );
+    case "processing":
+      return (
+        <Badge variant="outline" className="flex items-center gap-1 bg-blue-50 text-blue-700 border-blue-300">
+          <RefreshCw className="h-3 w-3" />
+          处理中
+        </Badge>
+      );
     case "completed":
       return (
         <Badge variant="outline" className="flex items-center gap-1 bg-green-50 text-green-700 border-green-300">

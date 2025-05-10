@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui";
 import { useAuth } from "@/components/AuthProvider";
 import OrderDetailDialog from "@/components/OrderDetailDialog";
 
@@ -33,16 +33,23 @@ const Orders = () => {
       try {
         if (user?.id) {
           setIsLoading(true);
-          // getAllOrders 不再接受 userId 参数，获取所有订单后在客户端过滤
+          // 获取所有订单
           const allOrders = await getAllOrders();
           
-          // TODO: 目前数据库表没有用户关联，暂时显示所有订单
-          // 后续需要在数据库中添加用户关联或根据其他方式过滤
-          setOrders(allOrders);
-          
-          // 当数据库表添加了用户关联后，可以使用以下代码过滤：
-          // const userOrders = allOrders.filter(order => order.user_id === user.id);
-          // setOrders(userOrders);
+          // 按照用户ID和用户手机号过滤当前用户订单
+          // 从用户类型定义中可以看到User类型有phone属性
+          if (user.phone) {
+            // 如果用户有手机号码，则通过用户ID或手机号过滤
+            const userOrders = allOrders.filter(order => 
+              order.phone_number === user.phone || 
+              order.user_id === user.id
+            );
+            setOrders(userOrders);
+          } else {
+            // 如果用户没有手机号码，只通过用户ID过滤
+            const userOrders = allOrders.filter(order => order.user_id === user.id);
+            setOrders(userOrders);
+          }
         }
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -89,7 +96,7 @@ const Orders = () => {
           <CardContent>
             {isLoading ? (
               <div className="flex justify-center py-10">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                <LoadingSpinner size="medium" />
               </div>
             ) : orders.length > 0 ? (
               <>

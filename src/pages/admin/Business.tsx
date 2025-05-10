@@ -4,7 +4,7 @@ import AdminLayout from "@/components/AdminLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { getBusinessTypes, getRechargeProducts } from "@/services/businessService";
-import { Loader2 } from "lucide-react";
+import { LoadingSpinner } from "@/components/ui";
 import { BusinessType, RechargeProduct } from "@/types";
 import BusinessTypeList from "@/components/admin/business/BusinessTypeList";
 import ProductsList from "@/components/admin/business/ProductsList";
@@ -50,7 +50,7 @@ const Business = () => {
 
         {isLoading ? (
           <div className="flex justify-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            <LoadingSpinner size="medium" text="" />
           </div>
         ) : (
           <Tabs defaultValue="businessTypes" className="w-full">

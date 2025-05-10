@@ -3,9 +3,9 @@ import React from 'react';
 import { 
   Wallet, 
   ArrowDown, 
-  ArrowUp,
-  Loader2 
+  ArrowUp
 } from 'lucide-react';
+import { LoadingSpinner } from '@/components/ui';
 import { useNavigate } from 'react-router-dom';
 import { 
   Card, 
@@ -43,7 +43,7 @@ const WalletBalance: React.FC<WalletBalanceProps> = ({
             <p className="text-sm text-gray-500">账户余额</p>
             {isLoading ? (
               <div className="flex justify-center mt-2">
-                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                <LoadingSpinner size="small" text="" />
               </div>
             ) : (
               <p className="text-4xl font-bold">

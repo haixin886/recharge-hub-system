@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { Copy, DollarSign, Loader2, CreditCard } from 'lucide-react';
+import { Copy, DollarSign, CreditCard } from 'lucide-react';
+import { LoadingButton, LoadingSpinner } from '@/components/ui';
 import { PaymentAddress } from "@/types";
 import { createWalletRechargeRequest } from "@/services/walletService";
 import { useToast } from "@/hooks/use-toast";
@@ -147,7 +148,7 @@ const RechargeDialog: React.FC<RechargeDialogProps> = ({
           
           {isLoadingAddresses ? (
             <div className="flex justify-center py-4">
-              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              <LoadingSpinner size="small" text="" />
             </div>
           ) : trc20Address ? (
             <div className="border rounded-md p-3">
@@ -186,10 +187,7 @@ const RechargeDialog: React.FC<RechargeDialogProps> = ({
             disabled={!rechargeAmount || parseFloat(rechargeAmount) < 10 || isSubmitting}
           >
             {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                提交中...
-              </>
+              <LoadingButton>提交中...</LoadingButton>
             ) : "我已完成充值"}
           </Button>
         </DialogFooter>
