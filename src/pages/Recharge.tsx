@@ -9,7 +9,7 @@ import { getPhoneCarrier } from "@/services/carrierDetection";
 import { CarrierType, RechargeOption, BusinessType } from "@/types";
 import { useToast } from "@/hooks/use-toast";
 import { rechargePhone } from "@/services/rechargeOptions";
-import { ArrowLeft, ArrowRight, ChevronLeft, Smartphone, Gamepad, PlayCircle, QrCode, CreditCard } from "lucide-react";
+import { ArrowLeft, ArrowRight, Smartphone, Gamepad, PlayCircle, QrCode, CreditCard } from "lucide-react";
 import { LoadingSpinner, LoadingButton, InlineLoading } from "@/components/ui";
 import { useAuth } from "@/components/AuthProvider";
 import { getUserWalletByUserId } from "@/services/walletService";
@@ -144,23 +144,14 @@ const Recharge: React.FC = () => {
     try {
       const products = await getProductsForBusinessType(typeId);
       
-      // 设置固定金额选项
-      const defaultAmounts = [
-        { value: 50, discount: 0 },
-        { value: 100, discount: 5 },
-        { value: 200, discount: 12 },
-        { value: 300, discount: 20 },
-        { value: 500, discount: 35 },
-        { value: 1000, discount: 80 },
-      ];
+      // 使用API返回的产品数据
+      const productOptions = products.map(product => ({
+        value: product.value,
+        label: `${product.value}元${product.discount ? ` 优惠${product.discount}元` : ''}`,
+        discount: product.discount || 0
+      }));
 
-      // 未来优化：使用产品数据中的价格
-      // const productOptions = products.map(product => ({
-      //   value: product.amount,
-      //   discount: product.discount || 0
-      // }));
-
-      setOptions(defaultAmounts);
+      setOptions(productOptions);
       
       // Reset any previously selected amount
       setAmount(0);
@@ -349,16 +340,7 @@ const Recharge: React.FC = () => {
   return (
     <Layout>
       <div className="recharge-container">
-        {/* 顶部区域 */}
-        <div className="recharge-header">
-          <button 
-            className="recharge-back-button" 
-            onClick={() => navigate(-1)}
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <h1>充值中心</h1>
-        </div>
+        {/* 移除了充值中心标题区 */}
         
         <div className="recharge-content">
           {/* 充值横幅配图 */}
@@ -525,20 +507,25 @@ const Recharge: React.FC = () => {
                           })}
                         </div>
                         
-                        {/* 自定义金额输入 */}
-                        <div className="mt-4">
-                          <Label htmlFor="customAmount" className="text-sm">自定义金额</Label>
-                          <div className="relative mt-1">
+                        {/* 自定义金额输入 - 增强版本 */}
+                        <div className={`custom-amount-container ${isCustomAmount ? 'active' : ''}`}>
+                          <Label htmlFor="customAmount" className="text-sm font-medium block mb-2">自定义金额</Label>
+                          <div className="relative">
                             <Input
                               id="customAmount"
                               value={customAmount}
                               onChange={handleCustomAmountChange}
                               placeholder="输入自定义充值金额"
-                              className={isCustomAmount ? "border-primary" : ""}
+                              className={`rounded-lg py-3 ${isCustomAmount ? "border-primary ring-2 ring-primary/20" : ""}`}
                             />
                             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                              <span className="text-muted-foreground">¥</span>
+                              <span className={`${isCustomAmount ? 'text-primary' : 'text-muted-foreground'}`}>¥</span>
                             </div>
+                            {isCustomAmount && (
+                              <div className="absolute right-3 top-1/2 -translate-y-1/2 text-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
